@@ -7,12 +7,10 @@ export class PreloadScene extends Phaser.Scene {
     super({
       key: SCENE_KEYS.PRELOAD_SCENE,
     });
-    console.log(SCENE_KEYS.PRELOAD_SCENE);
   }
 
   init() {
     //  The initialization state; the scene initialized first. This is where we place code we want to run every time the scene is started. For example, code for a score mechanic might live here, as we would want it to reset to 0 every time the scene starts. After this code runs, Phaser will advance into the preload state/method.
-    console.log('init'); 
   }
 
   preload() {
@@ -59,11 +57,10 @@ export class PreloadScene extends Phaser.Scene {
 
   create() {
     // This is where you can start creating objects and placing them into your scene. I.e., a background image being rendered out to the canvas, for example.
-    this.add.image(0, 0, BATTLE_BACKGROUND_ASSET_KEYS.FOREST).setOrigin(0);
+    this.scene.start(SCENE_KEYS.BATTLE_SCENE);
   }
 
   update() {
     // Code you want to run every tick, or frame update, inside the internal engine. This is where you can do things like listen for player input, or update your game objects based on physics data.
-    console.log('update');
   }
 }
