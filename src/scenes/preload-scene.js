@@ -15,6 +15,7 @@ export class PreloadScene extends Phaser.Scene {
 
   preload() {
     // Used for game assets. Phaser will only move on in the queue once all assets have finished loading. As such, this can take a long time if loading in lots of large files.
+    console.log(`[${PreloadScene.name}:preload] invoked`);
     const monsterTamerAssetPath = 'assets/images/monster-tamer';
     const kenneysAssetPath = 'assets/images/kenneys-assets';
 
@@ -57,6 +58,7 @@ export class PreloadScene extends Phaser.Scene {
 
   create() {
     // This is where you can start creating objects and placing them into your scene. I.e., a background image being rendered out to the canvas, for example.
+    console.log(`[${PreloadScene.name}:create] invoked`);
     this.scene.start(SCENE_KEYS.BATTLE_SCENE);
   }
 
