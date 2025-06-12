@@ -7,7 +7,7 @@ Monster Tamer is a short video game demo built with Phaser 3, developed while fo
 - Monster encounters and simple taming mechanics
 - Built entirely with JavaScript and the Phaser 3 framework
 
-$$ Getting Started
+## Getting Started
 
 To run the game locally:
 
