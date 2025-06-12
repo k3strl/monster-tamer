@@ -23,3 +23,10 @@ To run the game locally:
 ## License
 
 This project is open-source and available under the MIT License.
+
+
+## Future Ideas
+
+- Rework project to use TypeScript instead of JavaScript
+- Add more content
+- Create and use different assets
