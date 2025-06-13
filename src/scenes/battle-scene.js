@@ -83,6 +83,9 @@ export class BattleScene extends Phaser.Scene {
         fontStyle: 'italic',
       }),
     ]);
+      // render out main and sub info panes
+      this.#createMainInfoPane();
+      this.add.container(520, 448, [this.#createMainInfoSubPane()]);
   }
 
   #createHealthBar(x, y) {
@@ -103,4 +106,41 @@ export class BattleScene extends Phaser.Scene {
 
     return this.add.container(x, y, [leftCap, middle, rightCap]);
   }
+
+
+  #createMainInfoPane() {
+    const padding = 4;
+    const rectHeight = 124;
+
+    this.add
+      .rectangle(
+        padding,
+        this.scale.height - rectHeight - padding,
+        this.scale.width - padding * 2,
+        rectHeight,
+        0xede4f3,
+        1
+      )
+      .setOrigin(0)
+      .setStrokeStyle(8, 0xe4434a, 1);
+  }
+
+  #createMainInfoSubPane() {
+    const rectWidth = 500;
+    const rectHeight = 124;
+
+    return this.add
+      .rectangle(
+        0,
+        0,
+        rectWidth,
+        rectHeight,
+        0xede4f3,
+        1
+      )
+      .setOrigin(0)
+      .setStrokeStyle(8, 0x905ac2, 1);
+  }
+
+
 }
