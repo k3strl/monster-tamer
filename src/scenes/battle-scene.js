@@ -9,7 +9,11 @@ import { SCENE_KEYS } from "./scene-keys.js";
 import { BattleMenu } from "../battle/ui/menu/battle-menu.js";
 
 export class BattleScene extends Phaser.Scene {
+  /** @type {BattleMenu} */
   #battleMenu;
+  /** @type {Phaser.Types.Input.Keyboard.CursorKeys} */
+  #cursorKeys;
+
   constructor() {
     super({
       key: SCENE_KEYS.BATTLE_SCENE,
@@ -88,6 +92,15 @@ export class BattleScene extends Phaser.Scene {
     // render out main and sub info panes
     this.#battleMenu = new BattleMenu(this);
     this.#battleMenu.showMainBattleMenu();
+    this.#cursorKeys = this.input.keyboard.createCursorKeys();
+  }
+
+  update() {
+    const wasSpaceKeyPressed = Phaser.Input.Keyboard.JustDown(this.#cursorKeys.space);
+    if (wasSpaceKeyPressed) {
+      this.#battleMenu.handlePlayerInput('OK');
+      return;
+    }
   }
 
   #createHealthBar(x, y) {
