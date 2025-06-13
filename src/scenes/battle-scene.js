@@ -125,6 +125,13 @@ export class BattleScene extends Phaser.Scene {
     }
   }
 
+
+  /**
+   * 
+   * @param {number} x the x position to place the health bar container
+   * @param {number} y the y position to place the health bar container
+   * @returns {Phaser.GameObjects.Container}
+   */
   #createHealthBar(x, y) {
     const scaleY = 0.7;
     const leftCap = this.add
