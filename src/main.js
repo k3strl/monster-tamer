@@ -49,8 +49,8 @@ game.scene.start(SCENE_KEYS.PRELOAD_SCENE);
 
 // Battle System:
 // // TODO - load game assets
-// TODO - create battle scene layout !INPROGRESS
-// TODO - create dialog menu
+// // TODO - create battle scene layout
+// // TODO - create dialog menu
 // TODO - create option menu
 // TODO - create monster attack move list
 // TODO - handle player input

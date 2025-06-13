@@ -3,12 +3,10 @@ import {
   BATTLE_BACKGROUND_ASSET_KEYS,
   HEALTH_BAR_ASSET_KEYS,
   MONSTER_ASSET_KEYS,
-} from '../assets/asset-keys.js';
-import Phaser from '../lib/phaser.js';
-import { SCENE_KEYS } from './scene-keys.js';
-import { BattleMenu } from '../battle/ui/menu/battle-menu.js'
-
-
+} from "../assets/asset-keys.js";
+import Phaser from "../lib/phaser.js";
+import { SCENE_KEYS } from "./scene-keys.js";
+import { BattleMenu } from "../battle/ui/menu/battle-menu.js";
 
 export class BattleScene extends Phaser.Scene {
   #battleMenu;
@@ -33,8 +31,8 @@ export class BattleScene extends Phaser.Scene {
       20,
       MONSTER_ASSET_KEYS.IGUANIGNITE,
       {
-        color: '#7E3D3F',
-        fontSize: '32px',
+        color: "#7E3D3F",
+        fontSize: "32px",
       }
     );
     this.add.container(556, 318, [
@@ -43,20 +41,21 @@ export class BattleScene extends Phaser.Scene {
         .setOrigin(0),
       playerMonsterName,
       this.#createHealthBar(34, 34),
-      this.add.text(playerMonsterName.width + 35, 23, 'L5', {
-        color: '#ED474B',
-        fontSize: '28px',
+      this.add.text(playerMonsterName.width + 35, 23, "L5", {
+        color: "#ED474B",
+        fontSize: "28px",
       }),
-      this.add.text(30, 55, 'HP', {
-        color: '#FF6505',
-        fontSize: '24px',
-        fontStyle: 'italic',
+      this.add.text(30, 55, "HP", {
+        color: "#FF6505",
+        fontSize: "24px",
+        fontStyle: "italic",
       }),
-      this.add.text(443, 80, '25/25', {
-        color: '#7E3D3F',
-        fontSize: '16px',
-      })
-      .setOrigin(1, 0),
+      this.add
+        .text(443, 80, "25/25", {
+          color: "#7E3D3F",
+          fontSize: "16px",
+        })
+        .setOrigin(1, 0),
     ]);
 
     //render out ENEMY monster name & health bar
@@ -65,8 +64,8 @@ export class BattleScene extends Phaser.Scene {
       20,
       MONSTER_ASSET_KEYS.CARNODUSK,
       {
-        color: '#7E3D3F',
-        fontSize: '32px',
+        color: "#7E3D3F",
+        fontSize: "32px",
       }
     );
     this.add.container(0, 0, [
@@ -76,20 +75,19 @@ export class BattleScene extends Phaser.Scene {
         .setScale(1, 0.8),
       enemyMonsterName,
       this.#createHealthBar(34, 34),
-      this.add.text(enemyMonsterName.width + 35, 23, 'L5', {
-        color: '#ED474B',
-        fontSize: '28px',
+      this.add.text(enemyMonsterName.width + 35, 23, "L5", {
+        color: "#ED474B",
+        fontSize: "28px",
       }),
-      this.add.text(30, 55, 'HP', {
-        color: '#FF6505',
-        fontSize: '24px',
-        fontStyle: 'italic',
+      this.add.text(30, 55, "HP", {
+        color: "#FF6505",
+        fontSize: "24px",
+        fontStyle: "italic",
       }),
     ]);
     // render out main and sub info panes
     this.#battleMenu = new BattleMenu(this);
-
-
+    this.#battleMenu.showMainBattleMenu();
   }
 
   #createHealthBar(x, y) {
@@ -110,9 +108,4 @@ export class BattleScene extends Phaser.Scene {
 
     return this.add.container(x, y, [leftCap, middle, rightCap]);
   }
-
-
-
-
-
 }
