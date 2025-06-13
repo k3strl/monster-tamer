@@ -7,6 +7,18 @@ import {
 import Phaser from "../lib/phaser.js";
 import { SCENE_KEYS } from "./scene-keys.js";
 
+const BATTLE_MENU_OPTIONS = Object.freeze({ // these are enums! adding variables so that we can reference the code for these functions later.
+  FIGHT: 'FIGHT',
+  SWITCH: 'SWITCH',
+  ITEM: 'ITEM',
+  FLEE: 'FLEE',
+})
+
+const battleUiTextStyle = {
+          color: 'black',
+          fontSize: '30px',
+        }
+
 export class BattleScene extends Phaser.Scene {
   constructor() {
     super({
@@ -85,7 +97,20 @@ export class BattleScene extends Phaser.Scene {
     ]);
       // render out main and sub info panes
       this.#createMainInfoPane();
-      this.add.container(520, 448, [this.#createMainInfoSubPane()]);
+      this.add.container(520, 448, [
+        this.#createMainInfoSubPane(),
+        this.add.text(55, 22, BATTLE_MENU_OPTIONS.FIGHT, battleUiTextStyle),
+        this.add.text(240, 22, BATTLE_MENU_OPTIONS.SWITCH, battleUiTextStyle),
+        this.add.text(55, 70, BATTLE_MENU_OPTIONS.ITEM, battleUiTextStyle),
+        this.add.text(240, 70, BATTLE_MENU_OPTIONS.FLEE, battleUiTextStyle),
+      ]);
+
+      this.add.container(0, 448,  [
+        this.add.text(55, 22, 'slash', battleUiTextStyle),
+        this.add.text(240, 22, 'growl', battleUiTextStyle),
+        this.add.text(55, 70, '-', battleUiTextStyle),
+        this.add.text(240, 70, '-', battleUiTextStyle),
+      ])
   }
 
   #createHealthBar(x, y) {
