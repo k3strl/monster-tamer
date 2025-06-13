@@ -7,6 +7,7 @@ import {
 import Phaser from "../lib/phaser.js";
 import { SCENE_KEYS } from "./scene-keys.js";
 import { BattleMenu } from "../battle/ui/menu/battle-menu.js";
+import { DIRECTION } from "../common/direction.js";
 
 export class BattleScene extends Phaser.Scene {
   /** @type {BattleMenu} */
@@ -100,6 +101,27 @@ export class BattleScene extends Phaser.Scene {
     if (wasSpaceKeyPressed) {
       this.#battleMenu.handlePlayerInput('OK');
       return;
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.#cursorKeys.shift)) {
+      this.#battleMenu.handlePlayerInput('CANCEL');
+      return;
+    }
+
+    /** @type {import('../common/direction.js').Direction} */
+    let selectedDirection = DIRECTION.NONE;
+    if (this.#cursorKeys.left.isDown) {
+      selectedDirection = DIRECTION.LEFT;
+    } else if (this.#cursorKeys.right.isDown) {
+      selectedDirection = DIRECTION.RIGHT;
+    } else if (this.#cursorKeys.up.isDown) {
+      selectedDirection = DIRECTION.UP;
+    } else if (this.#cursorKeys.down.isDown) {
+      selectedDirection = DIRECTION.DOWN;
+    }
+
+    if (selectedDirection !== DIRECTION.NONE) {
+      this.#battleMenu.handlePlayerInput(selectedDirection);
     }
   }
 

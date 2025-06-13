@@ -59,7 +59,7 @@ export class BattleMenu {
   handlePlayerInput(input) {
     /** 
      * 
-     * @param {'OK'|'CANCEL'} input
+     * @param {import('../../../common/direction.js').Direction|'OK'|'CANCEL'} input
      */
     console.log(input);
     if (input === 'CANCEL') {
