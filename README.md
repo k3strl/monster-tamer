@@ -2,6 +2,8 @@
 
 Monster Tamer is a short video game demo built with Phaser 3, developed while following Scott Westover’s Phaser 3 tutorial series on YouTube. This project has served as both a coding milestone and a practical exercise in applying & reinforcing newly learned front-end development concepts through interactive game design.
 
+![my screenshot](/screenshot.png)
+
 ## Features
 
 - Monster encounters and simple taming mechanics
