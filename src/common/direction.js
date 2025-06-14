@@ -3,7 +3,6 @@
  */
 
 /** @enum {Direction} */
-
 export const DIRECTION = Object.freeze({
     LEFT: 'LEFT',
     RIGHT: 'RIGHT',
