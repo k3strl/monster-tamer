@@ -1,5 +1,8 @@
-import { MONSTER_ASSET_KEYS, UI_ASSET_KEYS } from '../../../assets/asset-keys.js';
-import { DIRECTION } from '../../../common/direction.js';
+import {
+  MONSTER_ASSET_KEYS,
+  UI_ASSET_KEYS,
+} from "../../../assets/asset-keys.js";
+import { DIRECTION } from "../../../common/direction.js";
 
 /**
  * @typedef {keyof typeof BATTLE_MENU_OPTIONS} BattleMenuOptions
@@ -17,7 +20,7 @@ const battleUiTextStyle = {
   color: "black",
   fontSize: "30px",
 };
-  
+
 const BATTLE_MENU_CURSOR_POS = Object.freeze({
   x: 42,
   y: 38,
@@ -37,11 +40,11 @@ export class BattleMenu {
   /** @type {Phaser.GameObjects.Image} */
   #mainBattleMenuCursorPhaserImageGameObject;
   /** @type {BattleMenuOptions} */
-  #selectedBattleMenuOption;            
+  #selectedBattleMenuOption;
 
   /**
-   * 
-   * @param {Phaser.Scene} scene the Phaser 3 scene the battle menu will be added to 
+   *
+   * @param {Phaser.Scene} scene the Phaser 3 scene the battle menu will be added to
    */
   constructor(scene) {
     this.#scene = scene;
@@ -52,12 +55,16 @@ export class BattleMenu {
   }
 
   showMainBattleMenu() {
-    this.#battleTextGameObjectLine1.setText('What should')
+    this.#battleTextGameObjectLine1.setText("What should");
     this.#mainBattleMenuPhaserContainerGameObject.setAlpha(1);
     this.#battleTextGameObjectLine1.setAlpha(1);
     this.#battleTextGameObjectLine2.setAlpha(1);
 
-    this.#mainBattleMenuCursorPhaserImageGameObject.setPosition(BATTLE_MENU_CURSOR_POS.x, BATTLE_MENU_CURSOR_POS.y);
+    this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.FIGHT;
+    this.#mainBattleMenuCursorPhaserImageGameObject.setPosition(
+      BATTLE_MENU_CURSOR_POS.x,
+      BATTLE_MENU_CURSOR_POS.y
+    );
   }
 
   hideMainBattleMenu() {
@@ -74,31 +81,32 @@ export class BattleMenu {
     this.#moveSelectionSubBattleMenuPhaserContainerGameObject.setAlpha(0);
   }
 
-  /** 
-   * 
+  /**
+   *
    * @param {import('../../../common/direction.js').Direction|'OK'|'CANCEL'} input
-  */
-    handlePlayerInput(input) {
+   */
+  handlePlayerInput(input) {
     console.log(input);
-    if (input === 'CANCEL') {
+    if (input === "CANCEL") {
       this.hideMonsterAttackSubMenu();
       this.showMainBattleMenu();
       return;
     }
-    if (input === 'OK') {
+    if (input === "OK") {
       this.hideMainBattleMenu();
       this.showMonsterAttackSubMenu();
       return;
     }
 
     this.#updateSelectedBattleMenuOptionFromInput(input);
+    this.#moveMainBattleMenuCursor();
   }
 
   #createMainBattleMenu() {
     this.#battleTextGameObjectLine1 = this.#scene.add.text(
       20,
       468,
-      'What should',
+      "What should",
       battleUiTextStyle
     );
     // TODO: update to use monster data that is passed into this class instance
@@ -110,7 +118,12 @@ export class BattleMenu {
     );
 
     this.#mainBattleMenuCursorPhaserImageGameObject = this.#scene.add
-      .image(BATTLE_MENU_CURSOR_POS.x, BATTLE_MENU_CURSOR_POS.y, UI_ASSET_KEYS.CURSOR, 0)
+      .image(
+        BATTLE_MENU_CURSOR_POS.x,
+        BATTLE_MENU_CURSOR_POS.y,
+        UI_ASSET_KEYS.CURSOR,
+        0
+      )
       .setOrigin(0.5)
       .setScale(2.5);
 
@@ -158,7 +171,7 @@ export class BattleMenu {
         this.#scene.add.text(55, 70, "-", battleUiTextStyle),
         this.#scene.add.text(240, 70, "-", battleUiTextStyle),
       ]);
-      this.hideMonsterAttackSubMenu();
+    this.hideMonsterAttackSubMenu();
   }
 
   #createMainInfoPane() {
@@ -188,22 +201,102 @@ export class BattleMenu {
       .setStrokeStyle(8, 0x905ac2, 1);
   }
 
-    /**
-     * @param {import('../../../common/direction.js').Direction} direction
-     */
-    #updateSelectedBattleMenuOptionFromInput(direction) {
-      if (this.#selectedBattleMenuOption === 'FIGHT') {
-        switch(direction) {
-          case DIRECTION.RIGHT:
-            return;
-          case DIRECTION.DOWN:
-          case DIRECTION.UP:
-          case DIRECTION.LEFT:
-            return;
-          default:
-            break;
-        }
-        return;
+  /**
+   * @param {import('../../../common/direction.js').Direction} direction
+   */
+  #updateSelectedBattleMenuOptionFromInput(direction) {
+    if (this.#selectedBattleMenuOption === BATTLE_MENU_OPTIONS.FIGHT) {
+      switch (direction) {
+        case DIRECTION.RIGHT:
+          this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.SWITCH;
+          return;
+        case DIRECTION.DOWN:
+          this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.ITEM;
+        case DIRECTION.LEFT:
+        case DIRECTION.UP:
+        case DIRECTION.NONE:
+          return;
+        default:
+          break;
       }
+      return;
+    }
+
+    if (this.#selectedBattleMenuOption === BATTLE_MENU_OPTIONS.SWITCH) {
+      switch (direction) {
+        case DIRECTION.LEFT:
+          this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.FIGHT;
+          return;
+        case DIRECTION.DOWN:
+          this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.FLEE;
+        case DIRECTION.RIGHT:
+        case DIRECTION.UP:
+        case DIRECTION.NONE:
+          return;
+        default:
+          break;
+      }
+      return;
+    }
+
+    if (this.#selectedBattleMenuOption === BATTLE_MENU_OPTIONS.ITEM) {
+      switch (direction) {
+        case DIRECTION.RIGHT:
+          this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.FLEE;
+          return;
+        case DIRECTION.UP:
+          this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.FIGHT;
+        case DIRECTION.LEFT:
+        case DIRECTION.DOWN:
+        case DIRECTION.NONE:
+          return;
+        default:
+          break;
+      }
+      return;
+    }
+
+        if (this.#selectedBattleMenuOption === BATTLE_MENU_OPTIONS.FLEE) {
+      switch (direction) {
+        case DIRECTION.LEFT:
+          this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.ITEM;
+          return;
+        case DIRECTION.UP:
+          this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.SWITCH;
+        case DIRECTION.RIGHT:
+        case DIRECTION.DOWN:
+        case DIRECTION.NONE:
+          return;
+        default:
+          break;
+      }
+      return;
+    }
+  }
+
+  #moveMainBattleMenuCursor() {
+    switch (this.#selectedBattleMenuOption) {
+      case BATTLE_MENU_OPTIONS.FIGHT:
+        this.#mainBattleMenuCursorPhaserImageGameObject.setPosition(
+          BATTLE_MENU_CURSOR_POS.x,
+          BATTLE_MENU_CURSOR_POS.y
+        );
+        return;
+      case BATTLE_MENU_OPTIONS.SWITCH:
+        this.#mainBattleMenuCursorPhaserImageGameObject.setPosition(
+          228,
+          BATTLE_MENU_CURSOR_POS.y
+        );
+        return;
+      case BATTLE_MENU_OPTIONS.ITEM:
+        this.#mainBattleMenuCursorPhaserImageGameObject.setPosition(
+          BATTLE_MENU_CURSOR_POS.x,
+          86
+        );
+        return;
+      case BATTLE_MENU_OPTIONS.FLEE:
+        this.#mainBattleMenuCursorPhaserImageGameObject.setPosition(228, 86);
+        return;
+    }
   }
 }
