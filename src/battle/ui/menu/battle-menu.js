@@ -357,7 +357,7 @@ export class BattleMenu {
         case DIRECTION.DOWN:
           this.#selectedAttackMenuOption = ATTACK_MOVE_OPTIONS.MOVE_4;
           case DIRECTION.LEFT:
-            this.#selectedAttackMenuOption = ATTACK_MOVE_OPTIONS.MOVE_2;
+            this.#selectedAttackMenuOption = ATTACK_MOVE_OPTIONS.MOVE_1;
         case DIRECTION.RIGHT:
         case DIRECTION.UP:
         case DIRECTION.NONE:
