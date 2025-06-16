@@ -434,4 +434,9 @@ export class BattleMenu {
         exhaustiveGuard(this.#selectedAttackMenuOption);
     }
   }
+
+  #switchToMainBattleMenu() {
+    this.hideMonsterAttackSubMenu();
+    this.showMainBattleMenu();
+  }
 }
