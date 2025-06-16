@@ -38,8 +38,6 @@ export class BattleMenu {
   #selectedAttackMenuOption;
   /** @type {import('./battle-menu-options.js').ActiveBattleMenu} */
   #activeBattleMenu;
-  /** @type {import('./battle-menu-config.js').BATTLE_UI_TEXT_STYLE} */
-  #BATTLE_MENU_TEXT_STYLE;
 
   /**
    *
@@ -170,14 +168,14 @@ export class BattleMenu {
 
   #createMonsterAttackSubMenu() {
     this.#attackBattleMenuCursorPhaserImageGameObject = this.#scene.add.image(42, 38, UI_ASSET_KEYS.CURSOR, 0).setOrigin(0.5).setScale(2.5);
-    this.#moveSelectionSubBattleMenuPhaserContainerGameObject =
-      this.#scene.add.container(0, 448, [
-        this.#scene.add.text(55, 22, 'slash', BATTLE_UI_TEXT_STYLE),
-        this.#scene.add.text(240, 22, 'growl', BATTLE_UI_TEXT_STYLE),
-        this.#scene.add.text(55, 70, '-', BATTLE_UI_TEXT_STYLE),
-        this.#scene.add.text(240, 70, '-', BATTLE_UI_TEXT_STYLE),
-        this.#attackBattleMenuCursorPhaserImageGameObject,
-      ]);
+
+    this.#moveSelectionSubBattleMenuPhaserContainerGameObject = this.#scene.add.container(0, 448, [
+      this.#scene.add.text(55, 22, 'slash', BATTLE_UI_TEXT_STYLE),
+      this.#scene.add.text(240, 22, 'growl', BATTLE_UI_TEXT_STYLE),
+      this.#scene.add.text(55, 70, '-', BATTLE_UI_TEXT_STYLE),
+      this.#scene.add.text(240, 70, '-', BATTLE_UI_TEXT_STYLE),
+      this.#attackBattleMenuCursorPhaserImageGameObject,
+    ]);
     this.hideMonsterAttackSubMenu();
   }
 
@@ -212,6 +210,10 @@ export class BattleMenu {
    * @param {import('../../../common/direction.js').Direction} direction
    */
   #updateSelectedBattleMenuOptionFromInput(direction) {
+    if (this.#activeBattleMenu !== ACTIVE_BATTLE_MENU.BATTLE_MAIN) {
+      return;
+    }
+
     if (this.#selectedBattleMenuOption === BATTLE_MENU_OPTIONS.FIGHT) {
       switch (direction) {
         case DIRECTION.RIGHT:
@@ -284,6 +286,10 @@ export class BattleMenu {
   }
 
   #moveMainBattleMenuCursor() {
+    if (this.#activeBattleMenu !== ACTIVE_BATTLE_MENU.BATTLE_MAIN) {
+      return;
+    }
+
     switch (this.#selectedBattleMenuOption) {
       case BATTLE_MENU_OPTIONS.FIGHT:
         this.#mainBattleMenuCursorPhaserImageGameObject.setPosition(
@@ -315,6 +321,10 @@ export class BattleMenu {
    * @param {import('../../../common/direction.js').Direction} direction
    */
   #updateSelectedMoveMenuOptionFromInput (direction) {
+    if (this.#activeBattleMenu !== ACTIVE_BATTLE_MENU.BATTLE_MOVE_SELECT) {
+      return;
+    }
+
     if (this.#selectedAttackMenuOption === ATTACK_MOVE_OPTIONS.MOVE_1) {
       switch (direction) {
         case DIRECTION.RIGHT:
@@ -384,7 +394,10 @@ export class BattleMenu {
     }
 
   #moveMoveSelectBattleMenuCursor() {
-    if (this.#activeBattleMenu !== ACTIVE_BATTLE_MENU.BATTLE_MOVE_SELECT)
+    if (this.#activeBattleMenu !== ACTIVE_BATTLE_MENU.BATTLE_MOVE_SELECT) {
+      return;
+    }
+
     switch(this.#selectedAttackMenuOption) {
       case ATTACK_MOVE_OPTIONS.MOVE_1:
         this.#attackBattleMenuCursorPhaserImageGameObject
