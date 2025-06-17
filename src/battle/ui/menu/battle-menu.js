@@ -506,11 +506,17 @@ export class BattleMenu {
 
     if (this.#selectedBattleMenuOption === BATTLE_MENU_OPTIONS.SWITCH) {
       //TODO
+      this.updateInfoPaneMessagesAndWaitForInput(['You have no other monsters in your party...'], () => {
+        this.#switchToMainBattleMenu();
+      });
       return;
     }
 
     if (this.#selectedBattleMenuOption === BATTLE_MENU_OPTIONS.FLEE) {
       //TODO
+      this.updateInfoPaneMessagesAndWaitForInput(['You cannot run away!'], () => {
+        this.#switchToMainBattleMenu();
+      });
       return;
     }
 
