@@ -528,7 +528,7 @@ export class BattleMenu {
       */
       this.#activeBattleMenu = ACTIVE_BATTLE_MENU.BATTLE_ITEM;
       this.updateInfoPaneMessagesAndWaitForInput(
-        ["Your bag is empty..."],
+        ["Your bag is empty!"],
         () => {
           this.#switchToMainBattleMenu();
         }
@@ -543,7 +543,7 @@ export class BattleMenu {
       */
       this.#activeBattleMenu = ACTIVE_BATTLE_MENU.BATTLE_SWITCH;
       this.updateInfoPaneMessagesAndWaitForInput(
-        ["You have no other monsters in your party..."],
+        ["You have no other monsters in your party!"],
         () => {
           this.#switchToMainBattleMenu();
         }
@@ -558,7 +558,7 @@ export class BattleMenu {
       */
       this.#activeBattleMenu = ACTIVE_BATTLE_MENU.BATTLE_FLEE;
       this.updateInfoPaneMessagesAndWaitForInput(
-        ["You cannot run away!"],
+        ["You tried to run, but the enemy is not letting you go."],
         () => {
           this.#switchToMainBattleMenu();
         }
